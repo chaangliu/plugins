@@ -19,8 +19,10 @@ class SharedPreferences {
 
   static const String _prefix = 'flutter.';
   static SharedPreferences _instance;
-  static Future<SharedPreferences> getInstance() async {
-    if (_instance == null) {
+
+  ///forceUpdate means get retrieve sp data from native immediately to ensure if someone changed the sp from native app we can get the latest sp data.
+  static Future<SharedPreferences> getInstance({bool forceUpdate = false}) async {
+    if (_instance == null || forceUpdate) {
       final Map<Object, Object> fromSystem =
           // TODO(amirh): remove this on when the invokeMethod update makes it to stable Flutter.
           // https://github.com/flutter/flutter/issues/26431
